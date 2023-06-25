@@ -1,0 +1,26 @@
+﻿# Coloring Map For （ ）
+##############################################
+##############################################
+# Classes and Objects (KEYWORD1)
+##############################################
+BMK52M134	KEYWORD1
+##############################################
+# Methods and Functions (KEYWORD2)
+##############################################
+begin	KEYWORD2
+getINT	KEYWORD2
+getNumber	KEYWORD2
+getKeyValueArray	KEYWORD2
+getKeyValue 	KEYWORD2
+getThresholdSingle	KEYWORD2
+getSleepENSingle	KEYWORD2
+setThresholdAll	KEYWORD2
+setThresholdSingle	KEYWORD2
+setSleepENAll	KEYWORD2
+setSleepENSingle	KEYWORD2
+
+##############################################
+# Constants (LITERAL1)
+##############################################
+SLEEP_MODE_DISABLE	LITERAL1
+SLEEP_MODE_ENABLE	LITERAL1
