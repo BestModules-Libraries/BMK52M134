@@ -41,7 +41,6 @@ void loop()
       Serial.print(": ");
       Serial.print(key_value[i], BIN);
       Serial.println(" ");
-      delay(500);
     }
     Serial.println();
   }
