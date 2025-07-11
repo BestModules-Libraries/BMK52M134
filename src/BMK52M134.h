@@ -1,9 +1,8 @@
 /*************************************************
   File:       	    BMK52M134.h
-  Author:            	BESTMODULES
-  Description:        Define classes and required variables
-  History：
-  V1.0.1	 -- initial version；2023-03-31；Arduino IDE : ≥v1.8.16
+  Author:           BEST MODULES CORP.
+  Description:      Define classes and required variables
+  Version:          V1.0.2   -- 2025-06-25
 **************************************************/
 #ifndef _BMK52M134_H
 #define _BMK52M134_H

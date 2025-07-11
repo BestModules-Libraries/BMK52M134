@@ -1,19 +1,16 @@
 /*****************************************************************
   File:          BMK52M134.cpp
-  Author:        BESTMODULES
+  Author:        BEST MODULES CORP.
   Description:   I2C communication with the BMK52M134
-  History：
-  V1.0.1  -- initial version;2023-03-31;Arduino IDE : ≥v1.8.16
+  Version:       V1.0.2   -- 2025-06-25
 ******************************************************************/
 #include "BMK52M134.h"
 /*********************************************************************************
   Description: Constructor
-  Input:       intPin: INT Output pin connection with Arduino,
-                     the INT will be pulled down when an object approaches
+  Parameters: intPin: INT Output pin connection with Arduino
               theWire: Wire object if your board has more than one I2C interface
-  Output:
-  Return:
-  Others:
+  Return:     None
+  Others:     the INT will be pulled down when an object approaches
 ***********************************************************************************/
 BMK52M134::BMK52M134(uint8_t intPin, TwoWire *theWire)
 {
@@ -23,10 +20,9 @@ BMK52M134::BMK52M134(uint8_t intPin, TwoWire *theWire)
 
 /*********************************************************************************
   Description: This function initalizes the BMK52M134 sensor.
-  Input:
-  Output:
-  Return:
-  Others:
+  Parameters:  i2c_addr:I2C slave address
+  Return: void
+  Others: None
 ***********************************************************************************/
 void BMK52M134::begin(uint8_t i2c_addr)
 {
@@ -46,11 +42,11 @@ void BMK52M134::begin(uint8_t i2c_addr)
 
 /**********************************************************
 Description: get Key Status
-Parameters:       
+Parameters:  void     
 Return:      Returns the INT state  
              0:INT output low level  press
              1:INT output high level   unpress    
-Others:      
+Others:      None
 **********************************************************/
 uint8_t BMK52M134::getINT()
 {
@@ -59,13 +55,13 @@ uint8_t BMK52M134::getINT()
 
 /********************************************************************
   Description: Gets the number of modules
-  Input:       *sumofmodules:  Store sum of modules.
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:  void
+  Return:      sum of modules
+                 0x00: CMD_TRANSFER_SUCCESS
+                 0x40: CHECKSUM_ERROR
+			           0x80: INSTRUCTION_NOT_SUPPOR
+			           0xA0: SLAVE_NO_RESPONSE
+  Others:      None
 *********************************************************************/
 uint8_t BMK52M134::getNumber()
 {
@@ -81,18 +77,16 @@ uint8_t BMK52M134::getNumber()
 }
 /********************************************************************
   Description:  Get key value
-  Input:        key_value[]: Sotre key_value;
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:   key_value[]: Sotre key_value
+  Return:       status
+                   0x00: CMD_TRANSFER_SUCCESS
+                   0x40: CHECKSUM_ERROR
+			             0x80: INSTRUCTION_NOT_SUPPOR
+			             0xA0: SLAVE_NO_RESPONSE
+  Others:       None
 *********************************************************************/
 void BMK52M134::getKeyValueArray(uint8_t key_value[])
 {
-
-
   _tx_buf[3] = _CMD_KEY_SCAN;
 
   delay(20);
@@ -100,8 +94,6 @@ void BMK52M134::getKeyValueArray(uint8_t key_value[])
   delay(30);
 
   readBytes(5 + _SumOfModules, _rx_buf);               //read ack
-
- 
   /* 數組幀格式：
     MID | ID | LEN | CMD/STATUS | DATA0~n | CHECHSUM*/
   //DATA0~n:为模块ID 0x01~n 的key_value。
@@ -113,13 +105,9 @@ void BMK52M134::getKeyValueArray(uint8_t key_value[])
 }
 /********************************************************************
   Description:  Get key value
-  Input:        *key_value: Sotre key_value;
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:   void
+  Return:       key_value: Sotre key_value
+  Others:       None
 *********************************************************************/
 uint8_t BMK52M134::getKeyValue()
 {
@@ -157,13 +145,13 @@ uint8_t BMK52M134::getKeyValue()
 }
 /********************************************************************
   Description: Set thresholds for all modules
-  Input:       Threshold
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:  Threshold
+  Return:      Status
+                 0x00: CMD_TRANSFER_SUCCESS
+                 0x40: CHECKSUM_ERROR
+			           0x80: INSTRUCTION_NOT_SUPPOR
+			           0xA0: SLAVE_NO_RESPONSE
+  Others:      None
 *********************************************************************/
 uint8_t BMK52M134::setThresholdAll(uint8_t Threshold)
 {
@@ -182,14 +170,14 @@ uint8_t BMK52M134::setThresholdAll(uint8_t Threshold)
 }
 /********************************************************************
   Description: Sets a threshold for a single module
-  Input:       sensor_number: The module number
-             Threshold
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:  sensor_number: The module number
+               Threshold:threshold
+  Return:      Status
+                0x00: CMD_TRANSFER_SUCCESS
+                0x40: CHECKSUM_ERROR
+			          0x80: INSTRUCTION_NOT_SUPPOR
+			          0xA0: SLAVE_NO_RESPONSE
+  Others:      None
 *********************************************************************/
 uint8_t BMK52M134::setThresholdSingle(uint8_t sensor_number, uint8_t Threshold)
 {
@@ -209,14 +197,9 @@ uint8_t BMK52M134::setThresholdSingle(uint8_t sensor_number, uint8_t Threshold)
 }
 /********************************************************************
   Description: Gets the threshold for a single module
-  Input:       sensor_number: The module number
-             Threshold
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:  sensor_number: The module number
+  Return:      Threshold:threshold
+  Others:      None
 *********************************************************************/
 uint8_t BMK52M134::getThresholdSingle(uint8_t sensor_number)
 {
@@ -235,13 +218,13 @@ uint8_t BMK52M134::getThresholdSingle(uint8_t sensor_number)
 }
 /********************************************************************
   Description: The sleep mode of the module was enabled. Procedure After 8 seconds, if no key is pressed, the module will enter the sleep mode.
-  Input:       sleepen:SLEEP_MODE_DISABLE、SLEEP_MODE_ENABLE.
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:  sleepen:SLEEP_MODE_DISABLE、SLEEP_MODE_ENABLE.
+  Return:      Status
+                0x00: CMD_TRANSFER_SUCCESS
+                0x40: CHECKSUM_ERROR
+			          0x80: INSTRUCTION_NOT_SUPPOR
+			          0xA0: SLAVE_NO_RESPONSE
+  Others:      None
 *********************************************************************/
 uint8_t BMK52M134::setSleepENAll(uint8_t sleepen)
 {
@@ -261,14 +244,14 @@ uint8_t BMK52M134::setSleepENAll(uint8_t sleepen)
 }
 /********************************************************************
   Description: The sleep mode of the module was enabled. Procedure After 8 seconds, if no key is pressed, the module will enter the sleep mode.
-  Input:       sensor_number: The module number
-             sleepen:SLEEP_MODE_DISABLE、SLEEP_MODE_ENABLE.
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:  sensor_number: The module number
+               sleepen:SLEEP_MODE_DISABLE、SLEEP_MODE_ENABLE.
+  Return:      Status
+                0x00: CMD_TRANSFER_SUCCESS
+                0x40: CHECKSUM_ERROR
+			          0x80: INSTRUCTION_NOT_SUPPOR
+			          0xA0: SLAVE_NO_RESPONSE
+  Others:      None
 *********************************************************************/
 uint8_t BMK52M134::setSleepENSingle(uint8_t sensor_number, uint8_t sleepen)
 {
@@ -288,14 +271,13 @@ uint8_t BMK52M134::setSleepENSingle(uint8_t sensor_number, uint8_t sleepen)
 }
 /********************************************************************
   Description: Get the SleepEN of module.
-  Input:       sensor_number: The module number
-             sleepen:SLEEP_MODE_DISABLE、SLEEP_MODE_ENABLE.
-  Output:
-  Return:      0x00: CMD_TRANSFER_SUCCESS
-             0x40: CHECKSUM_ERROR
-			 0x80: INSTRUCTION_NOT_SUPPOR
-			 0xA0: SLAVE_NO_RESPONSE
-  Others:
+  Parameters:  sensor_number: The module number
+  Return:      Status
+                0x00: CMD_TRANSFER_SUCCESS
+                0x40: CHECKSUM_ERROR
+			          0x80: INSTRUCTION_NOT_SUPPOR
+			          0xA0: SLAVE_NO_RESPONSE
+  Others:      None
 *********************************************************************/
 uint8_t BMK52M134::getSleepENSingle(uint8_t sensor_number)
 {
@@ -315,12 +297,11 @@ uint8_t BMK52M134::getSleepENSingle(uint8_t sensor_number)
 /*----------------------- Internal I2C Abstraction -----------------------------*/
 /*******************************************************************
   Description: Write data to the module through I2C
-  Input:       id: The module number
-             len:Length of data to be written
-			 buffer: Write to an array of data
-  Output:
-  Return:      true or false.
-  Others:
+  Parameters:  id:  The module number
+               len: Length of data to be written
+               par: Write to an array of data
+  Return:   status:true(success) or false(Failure).
+  Others:   None
 *******************************************************************/
 bool BMK52M134::writeBytes(uint8_t id, uint8_t len, uint8_t *par)
 { /* 數組幀格式：
@@ -354,11 +335,10 @@ bool BMK52M134::writeBytes(uint8_t id, uint8_t len, uint8_t *par)
 }
 /**********************************************************
   Description: Read the data of the module through I2C
-  Input:       len: The length of the data read
-			 buffer: Store the read data
-  Output:
-  Return:      true or false.
-  Others:
+  Parameters:  len: The length of the data read
+			         buffer: Store the read data
+  Return:      status:true(success) or false(Failure).
+  Others:      None
 **********************************************************/
 bool BMK52M134::readBytes(uint8_t len, uint8_t *buffer)
 {

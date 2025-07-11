@@ -8,6 +8,15 @@ BMK52M134
 
 The Best Modules BMK52M134 is a 4-KEY capacitive touch module, which uses the I2C communication method. This document provides the description of the BMK52M134 Arduino Lib functions and how to install the Arduino Lib. The example demonstrates the function of obtaining the touch key value.
 
+#### Applicable types:
+<div align=center>
+
+|Paet No.   |Description                              |
+|:---------:|:---------------------------------------:|
+|BMK52M134 |4-KEY capacitive touch module|
+|BMK52M134A|4-KEY capacitive touch module|
+
+</div> 
 
 This library can be installed via the Arduino Library manager. Search for **BMK52M134**. 
 
@@ -22,12 +31,15 @@ Repository Contents
 Documentation 
 -------------------
 
-* **[BMK52M134 Arduino Library V1.0.1 Description v100]( https://www.bestmodulescorp.com/bmk52m134.html#tab-product2 )** - Arduino Library Description.
+* **[BMK52M134 Arduino Library Description]( https://www.bestmodulescorp.com/bmk52m134.html#tab-product2 )** - Arduino Library Description.
 
 Version History  
 -------------------
 
-* **V1.0.1** - Initial public release.
+* **V1.0.1**  
+&emsp;&emsp;- Initial public release.
+* **V1.0.2**  
+&emsp;&emsp;- Add applicable models: BMK52M134A; 
 
 License Information
 -------------------
@@ -36,8 +48,8 @@ This product is _**open source**_!
 
 Please review the LICENSE.md file for license information. 
 
-If you have any questions or concerns on licensing, please contact technical support on our BESTMODULES Email:service@bestmodulescorp.com
+If you have any questions or concerns on licensing, please contact technical support on our BEST MODULES CORP. Email:service@bestmodulescorp.com
 
 Distributed as-is; no warranty is given.
 
-BESTMODULES
+BEST MODULES CORP.
